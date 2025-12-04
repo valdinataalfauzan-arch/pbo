@@ -4,6 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GUI Sederhana</title>
+    <style>
+        body {
+            text-align: center;
+            padding: 50px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .firework {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: scale(1.1);
+        }
+        
+        h1 {
+            transition: all 0.5s ease;
+        }
+        
+        .changed {
+            color: #ff6b6b;
+            transform: scale(1.2);
+        }
+    </style>
 </head>
 <body>
     <h1 id="title">Halo, Mahasiswa!</h1>
@@ -11,7 +61,42 @@
 
     <script>
         function ubahTeks() {
-            document.getElementById("title").innerText = "Teks telah berubah!";
+            const title = document.getElementById("title");
+            title.innerText = "Teks telah berubah!";
+            title.classList.add("changed");
+            
+            // Buat kembang api
+            for (let i = 0; i < 50; i++) {
+                createFirework();
+            }
+        }
+        
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            
+            // Posisi random
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            firework.style.left = x + 'px';
+            firework.style.top = y + 'px';
+            
+            // Warna random
+            const colors = ['#ff6b6b', '#4ecdc4', '#ffe66d', '#a8e6cf', '#ff8b94'];
+            firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Arah ledakan random
+            const tx = (Math.random() - 0.5) * 200;
+            const ty = (Math.random() - 0.5) * 200;
+            firework.style.setProperty('--tx', tx + 'px');
+            firework.style.setProperty('--ty', ty + 'px');
+            
+            document.body.appendChild(firework);
+            
+            // Hapus setelah animasi selesai
+            setTimeout(() => {
+                firework.remove();
+            }, 1000);
         }
     </script>
 </body>
