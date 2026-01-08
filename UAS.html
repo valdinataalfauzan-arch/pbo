@@ -187,11 +187,11 @@
     <div class="logo">⚽</div>
     <h1 class="title">REAL MADRID</h1>
     <p class="subtitle">HALA MADRID</p>
-    <input type="text" id="username" placeholder="USERNAME">
-    <input type="password" id="password" placeholder="PASSWORD">
-    <button id="loginBtn">ACCESO</button>
-    <div class="denied" id="deniedText">¡ACCESO DENEGADO!</div>
-    <p class="motto">"Por siempre Real"</p>
+    <input type="text" id="username" placeholder="NAMA PENGGUNA">
+    <input type="password" id="password" placeholder="KATA SANDI">
+    <button id="loginBtn">MASUK</button>
+    <div class="denied" id="deniedText">AKSES DITOLAK!</div>
+    <p class="motto">"Selamanya Real Madrid"</p>
 </div>
 
 <!-- ===== PROFILE PAGE ===== -->
@@ -219,8 +219,8 @@
         </div>
     </div>
     
-    <button id="logoutBtn">SALIR</button>
-    <p class="motto">"¡Hala Madrid y nada más!"</p>
+    <button id="logoutBtn">KELUAR</button>
+    <p class="motto">"Hala Madrid dan tidak ada yang lain!"</p>
 </div>
 
 <script>
@@ -278,12 +278,12 @@
             this.deniedText.style.display = "none";
             this.loginPage.classList.add("hidden");
             this.profilePage.classList.remove("hidden");
-            this.welcomeText.innerText = `¡BIENVENIDO, ${username.toUpperCase()}!`;
+            this.welcomeText.innerText = `SELAMAT DATANG, ${username.toUpperCase()}!`;
         }
 
         accessDenied() {
             this.deniedText.style.display = "block";
-            alert("¡ACCESO DENEGADO! Solo para Madridistas.");
+            alert("AKSES DITOLAK! Hanya untuk Madridista.");
         }
 
         logout() {
