@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Real Madrid Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: 'Courier New', monospace;
+            background: radial-gradient(circle at top, #001f3f, #000814);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffd700;
+        }
+
+        /* ===== RETRO GRID ===== */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background:
+                linear-gradient(#ffd70044 1px, transparent 1px),
+                linear-gradient(90deg, #ffd70044 1px, transparent 1px);
+            background-size: 40px 40px;
+            transform: rotateX(65deg) translateY(-200px);
+            animation: gridMove 15s linear infinite;
+        }
+
+        @keyframes gridMove {
+            from { transform: rotateX(65deg) translateY(0); }
+            to { transform: rotateX(65deg) translateY(400px); }
+        }
+
+        /* ===== SCANLINE ===== */
+        body::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255,255,255,0.03),
+                rgba(255,255,255,0.03) 1px,
+                transparent 2px,
+                transparent 4px
+            );
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.9);
+            border: 3px solid #ffd700;
+            padding: 30px;
+            width: 340px;
+            text-align: center;
+            box-shadow: 0 0 25px #ffd700;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 15px #ffd700; }
+            to { box-shadow: 0 0 30px #ffffff; }
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px #ffd700;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color: #ffffff;
+            text-shadow: 0 0 15px #ffd700;
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            font-size: 12px;
+            color: #ffd700;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #0a0a0a;
+            border: 2px solid #ffd700;
+            color: #ffd700;
+            font-family: inherit;
+            text-align: center;
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 15px #ffd700;
+            border-color: #ffffff;
+        }
+
+        button {
+            width: 95%;
+            padding: 14px;
+            margin-top: 18px;
+            background: linear-gradient(90deg, #ffd700, #ffffff);
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: transform 0.15s ease;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px #ffd700; }
+            50% { box-shadow: 0 0 25px #ffffff; }
+            100% { box-shadow: 0 0 10px #ffd700; }
+        }
+
+        button:hover { transform: scale(1.05); }
+        button:active { transform: scale(0.92); }
+
+        /* ===== ACCESS DENIED ===== */
+        .denied {
+            margin-top: 15px;
+            color: #ff0000;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #ff0000;
+            display: none;
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        .hidden { display: none; }
+
+        .stats {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            text-align: left;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .stat-value {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .motto {
+            font-size: 11px;
+            color: #888;
+            margin-top: 15px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== LOGIN PAGE ===== -->
+<div class="container" id="loginPage">
+    <div class="logo">⚽</div>
+    <h1 class="title">REAL MADRID</h1>
+    <p class="subtitle">HALA MADRID</p>
+    <input type="text" id="username" placeholder="NAMA PENGGUNA">
+    <input type="password" id="password" placeholder="KATA SANDI">
+    <button id="loginBtn">MASUK</button>
+    <div class="denied" id="deniedText">AKSES DITOLAK!</div>
+    <p class="motto">"Selamanya Real Madrid"</p>
+</div>
+
+<!-- ===== PROFILE PAGE ===== -->
+<div class="container hidden" id="profilePage">
+    <div class="logo">👑</div>
+    <h1 class="title">MADRIDISTA</h1>
+    <p id="welcomeText"></p>
+    
+    <div class="stats">
+        <div class="stat-item">
+            <span>🏆 Liga Champions:</span>
+            <span class="stat-value">15 Trofi</span>
+        </div>
+        <div class="stat-item">
+            <span>⚪ La Liga:</span>
+            <span class="stat-value">36 Trofi</span>
+        </div>
+        <div class="stat-item">
+            <span>👕 Nomor Favorit:</span>
+            <span class="stat-value">#7</span>
+        </div>
+        <div class="stat-item">
+            <span>⭐ Status:</span>
+            <span class="stat-value">MADRIDISTA SEJATI</span>
+        </div>
+    </div>
+    
+    <button id="logoutBtn">KELUAR</button>
+    <p class="motto">"Hala Madrid dan tidak ada yang lain!"</p>
+</div>
+
+<script>
+    // ===== CLASS USER =====
+    class User {
+        constructor(username, password) {
+            this.username = username;
+            this.password = password;
+        }
+    }
+
+    // ===== CLASS AUTH =====
+    class Auth {
+        constructor() {
+            this.key = "madridistas_db";
+            this.initUser();
+        }
+
+        initUser() {
+            const users = this.getUsers();
+            if (users.length === 0) {
+                const defaultUser = new User("madridista", "halamadrid");
+                const users = [defaultUser];
+                this.saveUsers(users);
+            }
+        }
+
+        getUsers() {
+            const data = localStorage.getItem(this.key);
+            return data ? JSON.parse(data) : [];
+        }
+
+        saveUsers(users) {
+            localStorage.setItem(this.key, JSON.stringify(users));
+        }
+
+        login(username, password) {
+            const users = this.getUsers();
+            return users.find(
+                u => u.username === username && u.password === password
+            );
+        }
+    }
+
+    // ===== CLASS UI =====
+    class UI {
+        constructor() {
+            this.loginPage = document.getElementById("loginPage");
+            this.profilePage = document.getElementById("profilePage");
+            this.welcomeText = document.getElementById("welcomeText");
+            this.deniedText = document.getElementById("deniedText");
+        }
+
+        showProfile(username) {
+            this.deniedText.style.display = "none";
+            this.loginPage.classList.add("hidden");
+            this.profilePage.classList.remove("hidden");
+            this.welcomeText.innerText = `SELAMAT DATANG, ${username.toUpperCase()}!`;
+        }
+
+        accessDenied() {
+            this.deniedText.style.display = "block";
+            alert("AKSES DITOLAK! Hanya untuk Madridista.");
+        }
+
+        logout() {
+            this.profilePage.classList.add("hidden");
+            this.loginPage.classList.remove("hidden");
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+        }
+    }
+
+    // ===== OBJECT =====
+    const auth = new Auth();
+    const ui = new UI();
+
+    // ===== EVENT =====
+    document.getElementById("loginBtn").addEventListener("click", () => {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+
+        const user = auth.login(username, password);
+        user ? ui.showProfile(user.username) : ui.accessDenied();
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        ui.logout();
+    });
+
+    // Login dengan Enter key
+    document.getElementById("password").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            document.getElementById("loginBtn").click();
+        }
+    });
+</script>
+
+</body>
+</html>
